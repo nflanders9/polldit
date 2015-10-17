@@ -1,0 +1,14 @@
+---
+
+user_agent: 'polldit: predicting poll results based on reddit sentiment (by /u/nflans)'
+
+subreddits:
+    - 'politics'
+    - 'usnews'
+    - '2016elections'
+    - 'news'
+    - 'uspolitics'
+    - 'government'
+    - 'americangovernment'
+
+reddit_url: "www.reddit.com"
