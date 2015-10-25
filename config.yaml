@@ -2,6 +2,8 @@
 
 user_agent: 'polldit: predicting poll results based on reddit sentiment (by /u/nflans)'
 
+reddit_url: "www.reddit.com"
+
 subreddits:
     - 'politics'
     - 'usnews'
@@ -11,4 +13,18 @@ subreddits:
     - 'government'
     - 'americangovernment'
 
-reddit_url: "www.reddit.com"
+candidates:
+    sanders:
+        - 'bernie sanders'
+        - 'bernie'
+        - 'sanders'
+        - 'bern'
+    clinton:
+        - 'hillary clinton'
+        - 'hillary'
+        - 'clinton'
+        - 'hilary' # intentional common misspelling
+    trump:
+        - 'donald trump'
+        - 'donald'
+        - 'trump'
