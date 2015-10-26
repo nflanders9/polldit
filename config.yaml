@@ -23,6 +23,7 @@ candidates:
         - 'hillary clinton'
         - 'hillary'
         - 'clinton'
+        - 'hrc'
         - 'hilary' # intentional common misspelling
     trump:
         - 'donald trump'

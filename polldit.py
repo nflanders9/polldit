@@ -13,6 +13,9 @@ import warnings
 import datetime
 import utils
 import sys
+import nltk
+from textblob import TextBlob
+from textblob.sentiments import NaiveBayesAnalyzer
 
 # control whether debugging messages are printed to the console
 debug = False
@@ -189,11 +192,3 @@ def filter_by_candidate(post_list, candidate):
     return output
 
 
-
-#android = Subreddit("politics")
-#android.recent_comments()
-
-politics = Subreddit("politics")
-text = politics.get_text()
-for post in filter_by_candidate(text, 'clinton'):
-    print("************", post, "\n\n")
