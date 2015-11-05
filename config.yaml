@@ -4,6 +4,12 @@ user_agent: 'polldit: predicting poll results based on reddit sentiment (by /u/n
 
 reddit_url: "www.reddit.com"
 
+db:
+    name:       "polldit_db"
+    user:       <insert user here>
+    password:   <insert password here>
+    address:    "127.0.0.1"
+
 subreddits:
     - 'politics'
     - 'usnews'
