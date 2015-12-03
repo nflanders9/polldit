@@ -11,7 +11,7 @@ import collections
 import utils
 import sys
 import nltk
-import mysql.connector
+import sqlite3
 from subreddit import *
 import configuration
 from textblob import TextBlob
@@ -20,15 +20,12 @@ from textblob.sentiments import NaiveBayesAnalyzer
 # control whether debugging messages are printed to the console
 if len(sys.argv) > 1 and sys.argv[1] in ['-d', '-DEBUG']:
     DEBUG = True
-
-
+warnings.filterwarnings("ignore")
 
 # PRAW always returns a ResourceWarning as Python garbage collection
 # deletes the connection pool before processing it can be closed in 3.X
 if not DEBUG:
     warnings.filterwarnings("ignore")
 
-
-test = Subreddit("android")
-posts = test.fetch_posts()
-print([item.text for item in posts])
+blob = TextBlob("Donald Trump doesn't have experience")
+print(blob.sentiment)

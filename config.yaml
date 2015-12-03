@@ -37,13 +37,13 @@ candidates:
         - 'jeb'
         - 'bush'
     carson:
-        - 'ben'
+        #- 'ben' too common
         - 'carson'
     christie:
         - 'chris'
         - 'christie'
     cruz:
-        - 'ted'
+        #- 'ted' too common and part of other words
         - 'cruz'
     trump:
         - 'donald'
@@ -52,7 +52,7 @@ candidates:
         - 'carly'
         - 'fiorina'
     kasich:
-        - 'jon'
+        #- 'jon' too common
         - 'kasich'
     paul:
         - 'rand'

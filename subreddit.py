@@ -22,7 +22,7 @@ class Subreddit:
         self.subreddit = REDDIT.get_subreddit(name[3:])
 
 
-    def fetch_posts(self, begin=None, end=None):
+    def __fetch_posts(self, begin=None, end=None):
         """
         Return a list of all posts made between the given datetime objects.
         If no begin or end dates are given, it defaults to the last 24 hours
@@ -48,7 +48,7 @@ class Subreddit:
         return posts
 
 
-    def fetch_comments_on_posts(self, post_list):
+    def __fetch_comments_on_posts(self, post_list):
         """
         Return a single list of all the comments on all posts in the
         given list of Submissions
@@ -132,22 +132,6 @@ class Subreddit:
             list of Posts
         """
         self.subreddit.search(term)
-
-
-    def fetch_recent_comments(self, limit=None):
-        """
-        Return a list of recent comments from this subreddit since the given
-        datetime object
-
-        args:
-            limit: the number of comment to return (up to 1000)
-        return:
-            list of Posts
-        """
-        comment_gen = self.subreddit.get_comments(limit=limit)
-        comments = praw.helpers.flatten_tree(comment_gen)
-
-        return [Text(comment.body, comment.ups, comment.downs, comment.created) for comment in comments]
 
 
 class Text:
