@@ -21,17 +21,45 @@ subreddits:
 
 candidates:
     sanders:
-        - 'bernie sanders'
         - 'bernie'
         - 'sanders'
         - 'bern'
     clinton:
-        - 'hillary clinton'
         - 'hillary'
         - 'clinton'
         - 'hrc'
         - 'hilary' # intentional common misspelling
+    omalley:
+        - "martin"
+        - "o'malley"
+        - "omalley"
+    bush:
+        - 'jeb'
+        - 'bush'
+    carson:
+        - 'ben'
+        - 'carson'
+    christie:
+        - 'chris'
+        - 'christie'
+    cruz:
+        - 'ted'
+        - 'cruz'
     trump:
-        - 'donald trump'
         - 'donald'
         - 'trump'
+    fiorina:
+        - 'carly'
+        - 'fiorina'
+    kasich:
+        - 'jon'
+        - 'kasich'
+    paul:
+        - 'rand'
+        - 'paul'
+    rubio:
+        - 'marco'
+        - 'rubio'
+    santorum:
+        - 'rick'
+        - 'santorum'
