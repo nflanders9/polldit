@@ -29,4 +29,6 @@ if not DEBUG:
     warnings.filterwarnings("ignore")
 
 
-
+test = Subreddit("android")
+posts = test.fetch_posts()
+print([item.text for item in posts])

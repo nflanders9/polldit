@@ -27,11 +27,15 @@ def filter_by_candidate(post_list):
     """
     output = collections.defaultdict(list)
 
+    # filter out any comments containing this line since it is a comment that has been
+    # deleted from reddit
+    removed_string = "has been removed for the following reason"
+
     for post in post_list:
         for candidate in CANDIDATES:
             names = CANDIDATES[candidate]
             for name in names:
-                if name in post.content:
+                if name in post.content and removed_string not in post.content:
                     output[candidate].append(post)
     return output
 

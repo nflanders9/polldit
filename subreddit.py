@@ -67,7 +67,7 @@ class Subreddit:
             while len(remaining_more_comments) > 0:
                 remaining_more_comments = submission.replace_more_comments()
             comments += list(praw.helpers.flatten_tree(submission.comments))
-            print(len(comments))
+            if DEBUG: print(len(comments))
 
         if DEBUG: print("Number of comments: {}".format(len(comments)))
         

@@ -41,3 +41,7 @@ CANDIDATE_LIST = config['candidates']
 CANDIDATES = dict()
 for name in CANDIDATE_LIST:
     CANDIDATES[name] = config['candidates'][name]
+
+ALL_NAMES = []
+for candidate in CANDIDATES:
+    ALL_NAMES += CANDIDATES[candidate]

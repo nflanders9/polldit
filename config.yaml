@@ -6,8 +6,8 @@ reddit_url: "www.reddit.com"
 
 db:
     name:       "polldit_db"
-    user:       <insert user here>
-    password:   <insert password here>
+    user:       root
+    password:   root
     address:    "127.0.0.1"
 
 subreddits:
