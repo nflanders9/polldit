@@ -95,8 +95,8 @@ def make_file(text, sentiment, index):
 # read data to classify from the given SQLite database
 db = sqlite3.connect(database)
 
-pos_index = 0
-neg_index = 0
+pos_index = int(input("Starting positive index for the corpus: "))
+neg_index = int(input("Starting negative index for the corpus: "))
 
 for text, in db.execute('select postTitle from submissions'):
     clear()

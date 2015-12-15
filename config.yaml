@@ -63,3 +63,12 @@ candidates:
     santorum:
         - 'rick'
         - 'santorum'
+
+filter_list:
+    - 'hampshire'
+    - 'iowa'
+    - ';'
+    - '/'
+    - 'ted'
+    - 'jon'
+    - 'ben'

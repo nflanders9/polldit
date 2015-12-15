@@ -45,3 +45,5 @@ for name in CANDIDATE_LIST:
 ALL_NAMES = []
 for candidate in CANDIDATES:
     ALL_NAMES += CANDIDATES[candidate]
+
+FILTER_LIST = config["filter_list"]
