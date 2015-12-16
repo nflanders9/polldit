@@ -268,7 +268,7 @@ class RedditDB:
         score = comment.score
 
         # save data
-        self.__c.execute('Insert into comments VALUES (?, ?, ?, ?, ?)', [commentDateStr, userName, body, score, submissionID])
+        self.__c.execute('Insert into comments VALUES (?, ?, ?, ?, ?)', [int(commentDateStr), userName, body, score, submissionID])
         self.__c.connection.commit()
 
     def saveSubmission(self, post):
@@ -292,7 +292,7 @@ class RedditDB:
 
         # save data
         self.__c.execute('Insert into submissions VALUES (?, ?, ?, ?, ?, ?, ?)', [submissionID, submissionTitle, body,
-                                                                                  score, submissionDateStr,
+                                                                                  score, int(submissionDateStr),
                                                                                   subredditName, subredditID])
         self.__c.connection.commit()
 

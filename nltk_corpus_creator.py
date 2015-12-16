@@ -97,14 +97,28 @@ db = sqlite3.connect(database)
 
 pos_index = int(input("Starting positive index for the corpus: "))
 neg_index = int(input("Starting negative index for the corpus: "))
+mode = input("Enter a mode (\"submissions\" or \"comments\"): ")
 
-for text, in db.execute('select postTitle from submissions'):
-    clear()
-    sanitized_text = str(text.encode("ascii", "ignore"))
-    designation = input(sanitized_text + ":  ")
-    if designation in ['p', 'P', '+']:
-        make_file(sanitized_text, "pos", pos_index)
-        pos_index += 1
-    elif designation in ['n', 'N', '-']:
-        make_file(sanitized_text, "neg", neg_index)
-        neg_index += 1
+if mode == "submissions":
+    for text, in db.execute('select postTitle from submissions'):
+        clear()
+        sanitized_text = str(text.encode("ascii", "ignore"))
+        designation = input(sanitized_text + ":  ")
+        if designation in ['p', 'P', '+']:
+            make_file(sanitized_text, "pos", pos_index)
+            pos_index += 1
+        elif designation in ['n', 'N', '-']:
+            make_file(sanitized_text, "neg", neg_index)
+            neg_index += 1
+
+elif mode == "comments":
+    for text, in db.execute('select body from comments'):
+        clear()
+        sanitized_text = str(text.encode("ascii", "ignore"))
+        designation = input(sanitized_text + ":  ")
+        if designation in ['p', 'P', '+']:
+            make_file(sanitized_text, "pos", pos_index)
+            pos_index += 1
+        elif designation in ['n', 'N', '-']:
+            make_file(sanitized_text, "neg", neg_index)
+            neg_index += 1

@@ -5,9 +5,7 @@ Nick Flanders
 Loads configuration data from the config.yaml into a Python format
 """
 import yaml
-import mysql.connector
 import utils
-
 import praw
 
 
@@ -18,7 +16,7 @@ CONFIG_FILE = 'config.yaml'
 with open(CONFIG_FILE, 'r') as f:
     config = yaml.load(f)
 
-db_config = config["db"]
+DB = config["db"]
 
 
 USER_AGENT = config['user_agent']
@@ -26,13 +24,6 @@ REDDIT = praw.Reddit(USER_AGENT)
 SUBREDDITS = config['subreddits']
 REDDIT_URL = config['reddit_url']
 
-DB = mysql.connector.connect(
-    user=db_config["user"],
-    password=db_config["password"],
-    host=db_config["address"],
-    database=db_config["name"])
-
-CURSOR = DB.cursor()
 
 
 # initialize CANDIDATES to a dictionary of list of candidate names where the

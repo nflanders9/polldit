@@ -4,11 +4,7 @@ user_agent: 'polldit: predicting poll results based on reddit sentiment (by /u/n
 
 reddit_url: "www.reddit.com"
 
-db:
-    name:       "polldit_db"
-    user:       root
-    password:   root
-    address:    "127.0.0.1"
+db: "test.db"
 
 subreddits:
     - 'politics'
@@ -72,3 +68,4 @@ filter_list:
     - 'ted'
     - 'jon'
     - 'ben'
+    - '://'
