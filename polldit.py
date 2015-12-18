@@ -21,8 +21,6 @@ import random
 import pygal
 import re
 import math
-from textblob import TextBlob
-from textblob.sentiments import NaiveBayesAnalyzer
 import webbrowser
 
 DEBUG = False
