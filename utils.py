@@ -4,6 +4,8 @@ Nick Flanders
 
 Utility functions for use in polldit.py
 """
+import sys
+import math
 import datetime
 import collections
 from configuration import *
@@ -49,3 +51,18 @@ def safe_print(string):
         print(string)
     except UnicodeEncodeError:
         print(str(string).encode("ascii", "ignore"))
+
+def update_progress(completed, message=None, width=40):
+    """
+    Display a progress bar for a task that is the given percent completed
+    :param completed:   the ratio of the task completed (con the closed interval [0, 1])
+    :param message:     the preceding message to display in front of the progress bar
+    :param width:       the width of the progress bar
+    """
+    if message is None:
+        message_str = ""
+    else:
+        message_str = message
+    done_width = int(math.ceil(completed * width))
+    sys.stdout.write("\r" + message_str + " [{}]".format(" " * (width - 1)) + " " + str(int(completed * 100)) + "%")
+    sys.stdout.write("\r" + message_str + " " + '\u2588' * (done_width + 1))

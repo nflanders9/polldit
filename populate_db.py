@@ -10,7 +10,6 @@ import re
 import sys
 import os
 import warnings
-from subreddit import *
 from configuration import *
 from reddit_dataset import redditDataset
 

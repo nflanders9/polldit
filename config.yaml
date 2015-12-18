@@ -4,7 +4,7 @@ user_agent: 'polldit: predicting poll results based on reddit sentiment (by /u/n
 
 reddit_url: "www.reddit.com"
 
-db: "test.db"
+db: "reddit_december.db"
 
 subreddits:
     - 'politics'
@@ -16,49 +16,53 @@ subreddits:
     - 'americangovernment'
 
 candidates:
-    sanders:
-        - 'bernie'
-        - 'sanders'
-        - 'bern'
-    clinton:
-        - 'hillary'
-        - 'clinton'
-        - 'hrc'
-        - 'hilary' # intentional common misspelling
-    omalley:
-        - "martin"
-        - "o'malley"
-        - "omalley"
-    bush:
-        - 'jeb'
-        - 'bush'
-    carson:
-        #- 'ben' too common
-        - 'carson'
-    christie:
-        - 'chris'
-        - 'christie'
-    cruz:
-        #- 'ted' too common and part of other words
-        - 'cruz'
-    trump:
-        - 'donald'
-        - 'trump'
-    fiorina:
-        - 'carly'
-        - 'fiorina'
-    kasich:
-        #- 'jon' too common
-        - 'kasich'
-    paul:
-        - 'rand'
-        - 'paul'
-    rubio:
-        - 'marco'
-        - 'rubio'
-    santorum:
-        - 'rick'
-        - 'santorum'
+    democrats:
+        sanders:
+            - 'bernie'
+            - 'sanders'
+            - 'bern'
+        clinton:
+            - 'hillary'
+            - 'clinton'
+            - 'hrc'
+            - 'hilary' # intentional common misspelling
+        omalley:
+            - "martin"
+            - "o'malley"
+            - "omalley"
+    republicans:
+        bush:
+            - 'jeb'
+            - 'bush'
+        carson:
+            #- 'ben' too common
+            - 'carson'
+        christie:
+            - 'chris'
+            - 'christie'
+        cruz:
+            #- 'ted' too common and part of other words
+            - 'cruz'
+        trump:
+            - 'donald'
+            - 'trump'
+        fiorina:
+            - 'carly'
+            - 'fiorina'
+        kasich:
+            #- 'jon' too common
+            - 'kasich'
+        paul:
+            - 'rand'
+            - 'paul'
+        rubio:
+            - 'marco'
+            - 'rubio'
+        santorum:
+            - 'rick'
+            - 'santorum'
+
+
 
 filter_list:
     - 'hampshire'

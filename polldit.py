@@ -7,6 +7,7 @@ Predicting poll results for the 2016 US Presidential election
 based on sentiment in Reddit comments and posts
 """
 import sys
+import os
 import warnings
 import collections
 import utils
@@ -15,7 +16,6 @@ import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
 from nltk.corpus import reddit_politics
 import sqlite3
-from subreddit import *
 from configuration import *
 import random
 import pygal
@@ -30,6 +30,8 @@ DEBUG = False
 if len(sys.argv) > 1 and sys.argv[1] in ['-d', '-DEBUG']:
     DEBUG = True
 warnings.filterwarnings("ignore")
+os.system('cls' if os.name == 'nt' else 'clear')
+print()
 
 
 def word_feats(words, filter_list):
@@ -53,7 +55,7 @@ def create_classifier(iterations=100):
     # track the most accurate classifier so far
     best_classifier = None
     highest_accuracy = 0
-    for _ in range(100):
+    for iter_num in range(iterations):
         # randomly shuffle the feature sets to get new subsets to test and train on
         random.shuffle(negfeats)
         random.shuffle(posfeats)
@@ -76,6 +78,8 @@ def create_classifier(iterations=100):
         if accuracy > highest_accuracy:
             highest_accuracy = accuracy
             best_classifier = classifier
+        utils.update_progress(iter_num / iterations, message="Testing Classifiers")
+    sys.stdout.write("\n\n")
     return (classifier, highest_accuracy)
 
 
@@ -156,8 +160,8 @@ if __name__ == "__main__":
     print("Best classifier accuracy: ", accuracy)
     if DEBUG: classifier.show_most_informative_features(n=10)
     
-    start_date = 20151214000000#int(input("\nEnter the start datetime: "))
-    end_date = 20151214120000#int(input("Enter the end datetime: "))
+    start_date = int(input("\nEnter the start datetime (YYYYMMDDHHMMSS): "))
+    end_date = int(input("Enter the end datetime (YYYYMMDDHHMMSS): "))
     
     posts = get_posts(start_date, end_date)
     
@@ -165,6 +169,8 @@ if __name__ == "__main__":
     sentiments = dict()
     totals = dict()
     overall_total = 0
+    num_candidates = len(list(posts.keys()))
+    current = 1
     for candidate in posts:
         sentiments[candidate] = []
         totals[candidate] = 0
@@ -172,6 +178,10 @@ if __name__ == "__main__":
             sentiments[candidate].append(classify(classifier, text, score))
             totals[candidate] += 1
             overall_total += 1
+        utils.update_progress(current / num_candidates, message=candidate)
+        current += 1
+    # clear the progress bars for the candidates
+    sys.stdout.write("\r" + " " * 70 + "\n")
     
     # normalize the values to 0
     lowest = 0
@@ -180,17 +190,53 @@ if __name__ == "__main__":
         if avg < lowest:
             lowest = avg
 
+    # display sentiment values for each candidate to the console
+    print("\nRelative Sentiment Values:")
+    print("(normalized to 0, higher is more positive)\n")
     for candidate in sentiments:
-        print(candidate, (sum(sentiments[candidate]) / overall_total) - lowest)
+        print("\t", "{0: <12}".format(candidate), (sum(sentiments[candidate]) / overall_total) - lowest)
 
-    chart = pygal.HorizontalBar(show_x_labels=False)
-    chart.title = "Reddit Presidential Candidate Approval"
-    sorted_candidates = list(CANDIDATES.keys())
-    sorted_candidates.sort()
-    for candidate in sorted_candidates:
+    # ensure that an output directory exists
+    if not os.path.exists("output"):
+        os.mkdir("output")
+
+    # display a graph that has only the Democrats relative to each other
+    democrat_chart = pygal.HorizontalBar(show_x_labels=False, width=1000, height=400)
+    democrat_chart.title = "Reddit Democratic Candidate Sentiment"
+    DEMOCRATS.sort()
+    for candidate in DEMOCRATS:
+        if candidate not in sentiments:
+            sentiments[candidate] = [0]
+            # avoid division by 0 errors if the candidate was not found 
+            totals[candidate] = 1
+
+        # since these graphs are relative only, add a slight offset to each of them so that the candidate
+        # with the least approval does not appear to be missing from the graph
+        democrat_chart.add(candidate, (sum(sentiments[candidate]) / overall_total) - lowest + 0.01)
+
+    # save the chart to a file and display the svg with the default browser
+    democrat_chart.render_to_file("output/democrats.svg")
+    webbrowser.open_new('file://' + os.path.realpath("output/democrats.svg"))
+
+
+    # display a graph that has only the Republicans relative to each other
+    republican_chart = pygal.HorizontalBar(show_x_labels=False)
+    republican_chart.title = "Reddit Republican Candidate Sentiment"
+    REPUBLICANS.sort()
+    for candidate in REPUBLICANS:
         if candidate not in sentiments:
             sentiments[candidate] = [0]
             totals[candidate] = 1
-        chart.add(candidate, (sum(sentiments[candidate]) / overall_total) - lowest + 0.01)
-    chart.render_to_file("chart.svg")
-    webbrowser.open_new("chart.svg")
+        republican_chart.add(candidate, (sum(sentiments[candidate]) / overall_total) - lowest + 0.01)
+    republican_chart.render_to_file("output/republicans.svg")
+    webbrowser.open_new_tab('file://' + os.path.realpath("output/republicans.svg"))
+
+
+    # display a graph that combines the data for candidates from both parties
+    all_chart = pygal.HorizontalBar(show_x_labels=False)
+    all_chart.title = "Reddit Presidential Candidate Sentiment"
+    all_candidates = DEMOCRATS + REPUBLICANS
+    for candidate in all_candidates:
+        all_chart.add(candidate, (sum(sentiments[candidate]) / overall_total) - lowest + 0.01)
+    all_chart.render_to_file("output/all_candidates.svg")
+    webbrowser.open_new_tab('file://' + os.path.realpath("output/all_candidates.svg"))

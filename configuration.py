@@ -28,10 +28,15 @@ REDDIT_URL = config['reddit_url']
 
 # initialize CANDIDATES to a dictionary of list of candidate names where the
 # keys are the last names of each candidate
-CANDIDATE_LIST = config['candidates']
+DEMOCRATS = list(config['candidates']['democrats'].keys())
+REPUBLICANS = list(config['candidates']['republicans'].keys())
+
+CANDIDATE_LIST = DEMOCRATS + REPUBLICANS
 CANDIDATES = dict()
-for name in CANDIDATE_LIST:
-    CANDIDATES[name] = config['candidates'][name]
+for name in DEMOCRATS:
+    CANDIDATES[name] = config['candidates']['democrats'][name]
+for name in REPUBLICANS:
+    CANDIDATES[name] = config['candidates']['republicans'][name]
 
 ALL_NAMES = []
 for candidate in CANDIDATES:
