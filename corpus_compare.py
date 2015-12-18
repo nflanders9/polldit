@@ -20,7 +20,7 @@ import pygal
 from configuration import FILTER_LIST
 
 ITERATIONS = 100
-OUTPUT = "corpora_compasion.svg"
+OUTPUT = "corpora_comparison.svg"
 
 # process command line inputs
 try:
